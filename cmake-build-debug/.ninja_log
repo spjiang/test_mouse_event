@@ -1,0 +1,17 @@
+# ninja log v5
+73	1732	7477255830419613	test_mouse_event_autogen/timestamp	5c1dbed135151bad
+1796	5580	7477255870058720	CMakeFiles/test_mouse_event.dir/mainwindow.cpp.obj	daabb77bfe4a32d2
+73	1732	7477255830419613	test_mouse_event_autogen/mocs_compilation.cpp	5c1dbed135151bad
+73	1732	7477255830419613	D:/XNDD/workplace/test_mouse_event/cmake-build-debug/test_mouse_event_autogen/timestamp	5c1dbed135151bad
+1733	5183	7477255866065370	CMakeFiles/test_mouse_event.dir/test_mouse_event_autogen/mocs_compilation.cpp.obj	c789bfe42b0af040
+73	1732	7477255830419613	D:/XNDD/workplace/test_mouse_event/cmake-build-debug/test_mouse_event_autogen/mocs_compilation.cpp	5c1dbed135151bad
+7496	8314	0	test_mouse_event.exe	8b35aa28e0be1d20
+1776	7496	7477255889246467	CMakeFiles/test_mouse_event.dir/main.cpp.obj	8cbaf86c1b4110ed
+11	2340	7477268227600723	build.ninja	dac2d736abefb3c8
+19	1114	7477268305604787	test_mouse_event_autogen/timestamp	5c1dbed135151bad
+19	1114	7477268305604787	test_mouse_event_autogen/mocs_compilation.cpp	5c1dbed135151bad
+19	1114	7477268305604787	D:/XNDD/workplace/test_mouse_event/cmake-build-debug/test_mouse_event_autogen/timestamp	5c1dbed135151bad
+19	1114	7477268305604787	D:/XNDD/workplace/test_mouse_event/cmake-build-debug/test_mouse_event_autogen/mocs_compilation.cpp	5c1dbed135151bad
+1185	5239	7477268347934610	CMakeFiles/test_mouse_event.dir/MouseSimulator.cpp.obj	161650b2e13c1fc2
+1115	6322	7477268358787586	CMakeFiles/test_mouse_event.dir/test_mouse_event_autogen/mocs_compilation.cpp.obj	c789bfe42b0af040
+1139	9860	7477268394121952	CMakeFiles/test_mouse_event.dir/main.cpp.obj	8cbaf86c1b4110ed

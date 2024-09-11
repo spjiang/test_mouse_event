@@ -1,0 +1,9 @@
+-rootPath
+D:/XNDD/workplace/test_mouse_event
+-cmake-output
+-output-file
+D:/XNDD/workplace/test_mouse_event/cmake-build-debug/.qt_plugins/Qt6_QmlPlugins_Imports_test_mouse_event.cmake
+-importPath
+D:/XNDD/workplace/test_mouse_event/cmake-build-debug
+-importPath
+D:/XNDD/qt/6.5.3/mingw_64/./qml

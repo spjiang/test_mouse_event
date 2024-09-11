@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>554</width>
+    <height>510</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>鼠标+键盘模拟器</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>554</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>模拟事件</string>
+    </property>
+    <addaction name="moveCursor"/>
+    <addaction name="leftClick"/>
+    <addaction name="leftDoubleClick"/>
+    <addaction name="leftDrag"/>
+    <addaction name="rightClick"/>
+    <addaction name="rightDrag"/>
+    <addaction name="wheelZoomIn"/>
+    <addaction name="wheelZoomOut"/>
+    <addaction name="middleDrag"/>
+   </widget>
+   <addaction name="menu"/>
+  </widget>
+  <action name="actioncamera">
+   <property name="text">
+    <string>选择相机</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionsetting">
+   <property name="text">
+    <string>配置</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionlog">
+   <property name="text">
+    <string>操作日志</string>
+   </property>
+   <property name="toolTip">
+    <string>操作日志</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="moveCursor">
+   <property name="text">
+    <string>光标位置移动</string>
+   </property>
+  </action>
+  <action name="leftClick">
+   <property name="text">
+    <string>左键单击</string>
+   </property>
+  </action>
+  <action name="leftDoubleClick">
+   <property name="text">
+    <string>左键双击</string>
+   </property>
+  </action>
+  <action name="leftDrag">
+   <property name="text">
+    <string>左键点击拖动</string>
+   </property>
+  </action>
+  <action name="rightClick">
+   <property name="text">
+    <string>右键单击</string>
+   </property>
+  </action>
+  <action name="rightDrag">
+   <property name="text">
+    <string>右键点击拖动</string>
+   </property>
+  </action>
+  <action name="wheelZoomIn">
+   <property name="text">
+    <string>滚轮放大 (滚轮向上滚动)</string>
+   </property>
+  </action>
+  <action name="wheelZoomOut">
+   <property name="text">
+    <string>滚轮缩小 (滚轮向下滚动)</string>
+   </property>
+  </action>
+  <action name="middleDrag">
+   <property name="text">
+    <string>中键点击拖动</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
