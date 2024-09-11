@@ -322,8 +322,8 @@ D:/XNDD/workplace/test_mouse_event/mainwindow.h
  mdp:D:/XNDD/qt/6.5.3/mingw_64/include/QtWidgets/qwidget.h
  mdp:D:/XNDD/workplace/test_mouse_event/cmake-build-debug/test_mouse_event_autogen/moc_predefs.h
  mdp:D:/XNDD/workplace/test_mouse_event/mainwindow.h
+D:/XNDD/workplace/test_mouse_event/main.cpp
 D:/XNDD/workplace/test_mouse_event/mainwindow.cpp
  uic:ui_mainwindow.h
-D:/XNDD/workplace/test_mouse_event/main.cpp
 D:/XNDD/workplace/test_mouse_event/MouseSimulator.h
 D:/XNDD/workplace/test_mouse_event/MouseSimulator.cpp

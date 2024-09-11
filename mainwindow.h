@@ -25,6 +25,7 @@ public slots:
     void onActionWheelZoomInTriggered();
     void onActionWheelZoomOutTriggered();
     void onActionMiddleDragTriggered();
+    void onStartTest();
 private:
     Ui::MainWindow *ui;
 };

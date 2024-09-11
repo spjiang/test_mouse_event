@@ -16,6 +16,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -39,6 +40,7 @@ public:
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_2;
     QLabel *label;
+    QPushButton *startTest;
     QMenuBar *menuBar;
     QMenu *menu;
 
@@ -87,6 +89,11 @@ public:
 
         verticalLayout_2->addWidget(label);
 
+        startTest = new QPushButton(centralWidget);
+        startTest->setObjectName("startTest");
+
+        verticalLayout_2->addWidget(startTest);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName("menuBar");
@@ -130,6 +137,7 @@ public:
         wheelZoomOut->setText(QCoreApplication::translate("MainWindow", "\346\273\232\350\275\256\347\274\251\345\260\217 (\346\273\232\350\275\256\345\220\221\344\270\213\346\273\232\345\212\250)", nullptr));
         middleDrag->setText(QCoreApplication::translate("MainWindow", "\344\270\255\351\224\256\347\202\271\345\207\273\346\213\226\345\212\250", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "\351\274\240\346\240\207+\351\224\256\347\233\230\346\250\241\346\213\237\345\231\250", nullptr));
+        startTest->setText(QCoreApplication::translate("MainWindow", "\345\274\200\345\247\213\346\250\241\346\213\237", nullptr));
         menu->setTitle(QCoreApplication::translate("MainWindow", "\346\250\241\346\213\237\344\272\213\344\273\266", nullptr));
     } // retranslateUi
 

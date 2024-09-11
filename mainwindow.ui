@@ -30,6 +30,13 @@
       </property>
      </widget>
     </item>
+    <item>
+     <widget class="QPushButton" name="startTest">
+      <property name="text">
+       <string>开始模拟</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
