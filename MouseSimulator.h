@@ -6,9 +6,12 @@
 #define TEST_MOUSE_EVENT_MOUSESIMULATOR_H
 
 
+#include <qstring.h>
+
 class MouseSimulator {
 public:
     MouseSimulator();
+
     ~MouseSimulator();
 
     // 1. 光标位置移动
@@ -21,7 +24,8 @@ public:
     static void leftDoubleClick();
 
     // 4. 左键点击拖动
-    static void leftDrag(int startX, int startY, int endX, int endY);
+    static void leftDrag(int moveLong, int direction, int speed);
+
     // 5. 右键单击
     static void rightClick();
 

@@ -16,10 +16,25 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 public slots:
-    void onActionMoveCursorTriggered();
+
+    void onActionMoveCursorLeftTriggered();
+    void onActionMoveCursorRightTriggered();
+    void onActionMoveCursorUpTriggered();
+    void onActionMoveCursorDownTriggered();
+
+
+
     void onActionLeftClickTriggered();
     void onActionLeftDoubleClickTriggered();
-    void onActionLeftDragTriggered();
+
+
+    void onActionLeftDragLeftTriggered();
+    void onActionLeftDragRightTriggered();
+    void onActionLeftDragUpTriggered();
+    void onActionLeftDragDownTriggered();
+
+
+
     void onActionRightClickTriggered();
     void onActionRightDragTriggered();
     void onActionWheelZoomInTriggered();

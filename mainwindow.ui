@@ -52,12 +52,21 @@
     <property name="title">
      <string>模拟事件</string>
     </property>
-    <addaction name="moveCursor"/>
+    <addaction name="moveCursor_left"/>
+    <addaction name="moveCursor_right"/>
+    <addaction name="moveCursor_up"/>
+    <addaction name="moveCursor_down"/>
     <addaction name="leftClick"/>
     <addaction name="leftDoubleClick"/>
-    <addaction name="leftDrag"/>
+    <addaction name="leftDrag_left"/>
+    <addaction name="leftDrag_right"/>
+    <addaction name="leftDrag_up"/>
+    <addaction name="leftDrag_down"/>
     <addaction name="rightClick"/>
-    <addaction name="rightDrag"/>
+    <addaction name="rightDrag_left"/>
+    <addaction name="rightDrag_right"/>
+    <addaction name="rightDrag_up"/>
+    <addaction name="rightDrag_down"/>
     <addaction name="wheelZoomIn"/>
     <addaction name="wheelZoomOut"/>
     <addaction name="middleDrag"/>
@@ -91,9 +100,9 @@
     <enum>QAction::NoRole</enum>
    </property>
   </action>
-  <action name="moveCursor">
+  <action name="moveCursor_left">
    <property name="text">
-    <string>光标位置移动</string>
+    <string>光标位置移动-left</string>
    </property>
   </action>
   <action name="leftClick">
@@ -106,9 +115,9 @@
     <string>左键双击</string>
    </property>
   </action>
-  <action name="leftDrag">
+  <action name="leftDrag_left">
    <property name="text">
-    <string>左键点击拖动</string>
+    <string>左键点击拖动-left</string>
    </property>
   </action>
   <action name="rightClick">
@@ -116,9 +125,9 @@
     <string>右键单击</string>
    </property>
   </action>
-  <action name="rightDrag">
+  <action name="rightDrag_right">
    <property name="text">
-    <string>右键点击拖动</string>
+    <string>右键点击拖动-right</string>
    </property>
   </action>
   <action name="wheelZoomIn">
@@ -134,6 +143,51 @@
   <action name="middleDrag">
    <property name="text">
     <string>中键点击拖动</string>
+   </property>
+  </action>
+  <action name="moveCursor_right">
+   <property name="text">
+    <string>光标位置移动-right</string>
+   </property>
+  </action>
+  <action name="moveCursor_up">
+   <property name="text">
+    <string>光标位置移动-up</string>
+   </property>
+  </action>
+  <action name="moveCursor_down">
+   <property name="text">
+    <string>光标位置移动-down</string>
+   </property>
+  </action>
+  <action name="leftDrag_right">
+   <property name="text">
+    <string>左键点击拖动-right</string>
+   </property>
+  </action>
+  <action name="leftDrag_up">
+   <property name="text">
+    <string>左键点击拖动-up</string>
+   </property>
+  </action>
+  <action name="leftDrag_down">
+   <property name="text">
+    <string>左键点击拖动-down</string>
+   </property>
+  </action>
+  <action name="rightDrag_left">
+   <property name="text">
+    <string>右键点击拖动-left</string>
+   </property>
+  </action>
+  <action name="rightDrag_up">
+   <property name="text">
+    <string>右键点击拖动-up</string>
+   </property>
+  </action>
+  <action name="rightDrag_down">
+   <property name="text">
+    <string>右键点击拖动-down</string>
    </property>
   </action>
  </widget>
