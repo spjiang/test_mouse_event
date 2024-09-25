@@ -88,6 +88,7 @@ void MainWindow::onActionMoveCursorTriggered() {
     Sleep(5000);
     clearMouseEventStatus();
     for (int i = 0; i < m_forCnt; ++i) {
+        qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
         MouseSimulator::moveCursor(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
     }
@@ -99,6 +100,7 @@ void MainWindow::onActionLeftClickTriggered() {
     qDebug() << "onActionLeftClickTriggered-start";
     clearMouseEventStatus();
     for (int i = 0; i < m_forCnt; ++i) {
+        qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
         MouseSimulator::leftClick();
     }
@@ -111,6 +113,7 @@ void MainWindow::onActionLeftDoubleClickTriggered() {
 
     clearMouseEventStatus();
     for (int i = 0; i < m_forCnt; ++i) {
+        qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
         MouseSimulator::leftDoubleClick();
     }
@@ -121,6 +124,7 @@ void MainWindow::onActionMiddleDragTriggered() {
     Sleep(5000);
     qDebug() << "onActionMiddleDragTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
+        qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
 
         INPUT inputs[3] = {};
@@ -150,6 +154,7 @@ void MainWindow::onActionLeftDragTriggered() {
     Sleep(5000);
     qDebug() << "onActionLeftDragTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
+        qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
         INPUT inputs[3] = {};
 
@@ -177,6 +182,7 @@ void MainWindow::onActionWheelZoomOutTriggered() {
     Sleep(5000);
     qDebug() << "onActionWheelZoomOutTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
+        qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
         // 清空鼠标状态
         MAIN.clearMouseEventStatus();
@@ -192,6 +198,7 @@ void MainWindow::onActionWheelZoomInTriggered() {
     Sleep(5000);
     qDebug() << "onActionWheelZoomInTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
+        qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
         // 清空鼠标状态
         MAIN.clearMouseEventStatus();
@@ -205,6 +212,7 @@ void MainWindow::onActionRightDragTriggered() {
     Sleep(5000);
     qDebug() << "onActionRightDragTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
+        qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
         INPUT inputs[3] = {};
 
@@ -234,6 +242,7 @@ void MainWindow::onActionRightClickTriggered() {
     Sleep(5000);
     qDebug() << "onActionRightClickTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
+        qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
         // 清空鼠标状态
         MAIN.clearMouseEventStatus();
