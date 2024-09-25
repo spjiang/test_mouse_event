@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.28)
-project(test_mouse_event)
-project(test_mouse_event VERSION 0.1 LANGUAGES CXX)
+project(MotionCtrl-Mouse-POC)
+project(MotionCtrl-Mouse-POC VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -29,24 +29,24 @@ set(PROJECT_SOURCES
 )
 
 # 添加可执行文件
-qt_add_executable(test_mouse_event
+qt_add_executable(MotionCtrl-Mouse-POC
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
 )
 
 # 链接Qt库
-target_link_libraries(test_mouse_event PRIVATE
+target_link_libraries(MotionCtrl-Mouse-POC PRIVATE
         Qt6::Widgets
 )
 
-add_custom_command(TARGET test_mouse_event POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E rename $<TARGET_FILE:test_mouse_event> ${CMAKE_SOURCE_DIR}/installer/test_mouse_event.exe
+add_custom_command(TARGET MotionCtrl-Mouse-POC POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E rename $<TARGET_FILE:MotionCtrl-Mouse-POC> ${CMAKE_SOURCE_DIR}/installer/MotionCtrl-Mouse-POC.exe
         COMMENT "Copying my_executable to installer directory"
 )
 
 include_directories("${PROJECT_SOURCE_DIR}/")
 
-set_target_properties(test_mouse_event PROPERTIES
+set_target_properties(MotionCtrl-Mouse-POC PROPERTIES
         ${BUNDLE_ID_OPTION}
         MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
         MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -56,4 +56,4 @@ set_target_properties(test_mouse_event PROPERTIES
 include(GNUInstallDirs)
 
 #install(TARGETS powerpoint DESTINATION ${CMAKE_SOURCE_DIR}/installer)
-qt_finalize_executable(test_mouse_event)
+qt_finalize_executable(MotionCtrl-Mouse-POC)

@@ -274,6 +274,7 @@ void MainWindow::onActionLeftDragDownTriggered() {
 }
 
 
+
 // 右键单击
 void MainWindow::onActionRightClickTriggered() {
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
