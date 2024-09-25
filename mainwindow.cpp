@@ -6,6 +6,7 @@
 #include <chrono>
 #include <thread>
 #include <windows.h>
+#include <QMessageBox>
 
 MainWindow &MainWindow::singleton() {
     static auto *instance = new MainWindow;
@@ -76,6 +77,8 @@ void MainWindow::onSubmit() {
     m_frameInterval = ui->frame_interval->text().toInt();
     m_wheelZoomInMultWheelDelta = ui->wheelZoomIn_mult_wheel_delta->text().toInt();
     m_wheelZoomOutMultWheelDelta = ui->wheelZoomOut_mult_wheel_delta->text().toInt();
+
+    QMessageBox::information(this, "参数设置", "参数设置成功");
 };
 
 MainWindow::~MainWindow() = default;
