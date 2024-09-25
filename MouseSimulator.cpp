@@ -8,42 +8,6 @@
 #include <chrono>
 #include <thread>
 
-// 鼠标模拟器
-//void mouse_event(
-//        DWORD dwFlags,   // 指定鼠标事件的类型
-//        DWORD dx,        // 指定鼠标的水平位置
-//        DWORD dy,        // 指定鼠标的垂直位置
-//        DWORD dwData,    // 指定事件的附加信息
-//        ULONG_PTR dwExtraInfo // 指定与事件相关的额外信息
-//);
-//dwFlags：
-//
-//指定鼠标事件的类型。这个参数可以是以下值的组合：
-//MOUSEEVENTF_LEFTDOWN：模拟鼠标左键按下。
-//MOUSEEVENTF_LEFTUP：模拟鼠标左键抬起。
-//MOUSEEVENTF_RIGHTDOWN：模拟鼠标右键按下。
-//MOUSEEVENTF_RIGHTUP：模拟鼠标右键抬起。
-//MOUSEEVENTF_MIDDLEDOWN：模拟鼠标中键按下。
-//MOUSEEVENTF_MIDDLEUP：模拟鼠标中键抬起。
-//MOUSEEVENTF_XDOWN：模拟鼠标第一个X按钮按下。
-//MOUSEEVENTF_XUP：模拟鼠标第一个X按钮抬起。
-//MOUSEEVENTF_WHEEL：模拟鼠标滚轮滚动。
-//MOUSEEVENTF_HWHEEL：模拟鼠标水平滚轮滚动（Windows XP中引入）。
-//dx：
-//
-//指定鼠标的水平位置。对于MOUSEEVENTF_WHEEL和MOUSEEVENTF_HWHEEL事件，这个参数被忽略。
-//dy：
-//
-//指定鼠标的垂直位置。对于MOUSEEVENTF_WHEEL和MOUSEEVENTF_HWHEEL事件，这个参数被忽略。
-//dwData：
-//
-//指定事件的附加信息。对于MOUSEEVENTF_WHEEL事件，这个参数表示滚轮的移动量。对于其他类型的事件，这个参数可以表示点击次数（双击或单击）。
-//dwExtraInfo：
-//
-//指定与事件相关的额外信息。通常，这个参数传递NULL或者应用程序的实例句柄。
-
-
-
 MouseSimulator::MouseSimulator() {
 
 }
@@ -127,7 +91,10 @@ void MouseSimulator::moveCursorToMonitorPos(int newX, int newY) {
             input.mi.dy = absoluteY; // 使用 mi.dy
             input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE;
 
-            SendInput(1, &input, sizeof(INPUT));
+            UINT result = SendInput(1, &input, sizeof(INPUT));
+            if (result == 0) {
+                qCritical() << "moveCursorToMonitorPos SendInput failed";
+            }
         }
     }
 }
@@ -177,6 +144,7 @@ void MouseSimulator::moveMouseToTarget(Point current, Point target, int stride, 
 
     // 确保目标点在屏幕内
     if (target.x > screenWidth || target.y > screenHeight) {
+        qWarning() << "Target point is out of screen bounds: (" << target.x << ", " << target.y;
         return;
     }
 
@@ -283,8 +251,12 @@ void MouseSimulator::leftClick() {
     input[1].mi.dwFlags = MOUSEEVENTF_LEFTUP;
 
     // 发送输入
-    SendInput(2, input, sizeof(INPUT));
-    qDebug() << "mouseCode MouseEvent leftClickFunc success";
+    UINT result = SendInput(2, input, sizeof(INPUT));
+    if (result == 0) {
+        qCritical() << "mouseCode MouseEvent leftClickFunc failed";
+    } else {
+        qDebug() << "mouseCode MouseEvent leftClickFunc success";
+    }
 }
 
 // 左键双击
@@ -307,11 +279,12 @@ void MouseSimulator::leftDoubleClick() {
     input[3].mi.dwFlags = MOUSEEVENTF_LEFTUP;
 
     // 发送输入
-    SendInput(4, input, sizeof(INPUT));
-
-    // 可选：添加短暂延迟，以确保双击的效果更自然
-    Sleep(100);
-    qDebug() << "mouseCode MouseEvent leftDoubleClickFunc success";
+    UINT result = SendInput(4, input, sizeof(INPUT));
+    if (result == 0) {
+        qCritical() << "mouseCode MouseEvent leftDoubleClickFunc failed";
+    } else {
+        qDebug() << "mouseCode MouseEvent leftDoubleClickFunc success";
+    }
 }
 
 // 左键点击拖动
@@ -370,8 +343,12 @@ void MouseSimulator::rightClick(GestureData gestureData) {
     input[1].mi.dwFlags = MOUSEEVENTF_RIGHTUP;
 
     // 发送输入
-    SendInput(2, input, sizeof(INPUT));
-    qDebug() << "mouseCode MouseEvent rightClickFunc success";
+    UINT result = SendInput(2, input, sizeof(INPUT));
+    if (result == 0) {
+        qCritical() << "mouseCode MouseEvent rightClickFunc failed";
+    } else {
+        qDebug() << "mouseCode MouseEvent rightClickFunc success";
+    }
 }
 
 // 右键点击拖动
@@ -428,8 +405,12 @@ void MouseSimulator::wheelZoomIn(float mult_wheel_delta) {
     input.mi.mouseData = static_cast<int>(mult_wheel_delta * WHEEL_DELTA);
 
     // 发送输入
-    SendInput(1, &input, sizeof(INPUT));
-    qDebug() << "mouseCode MouseEvent wheelZoomInFunc success";
+    UINT result = SendInput(1, &input, sizeof(INPUT));
+    if (result == 0) {
+        qCritical() << "mouseCode MouseEvent wheelZoomInFunc failed";
+    } else {
+        qDebug() << "mouseCode MouseEvent wheelZoomInFunc success";
+    }
 }
 
 // 滚轮缩小 (滚轮向下滚动)
@@ -441,8 +422,12 @@ void MouseSimulator::wheelZoomOut(float mult_wheel_delta) {
     input.mi.mouseData = static_cast<int>(-mult_wheel_delta * WHEEL_DELTA);
 
     // 发送输入
-    SendInput(1, &input, sizeof(INPUT));
-    qDebug() << "mouseCode MouseEvent wheelZoomOutFunc success";
+    UINT result = SendInput(1, &input, sizeof(INPUT));
+    if (result == 0) {
+        qCritical() << "mouseCode MouseEvent wheelZoomOutFunc failed";
+    } else {
+        qDebug() << "mouseCode MouseEvent wheelZoomOutFunc success";
+    }
 }
 
 // 中键点击拖动

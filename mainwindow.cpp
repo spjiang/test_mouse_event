@@ -60,8 +60,10 @@ void MainWindow::clearMouseEventStatus() {
     inputs[2].mi.dwFlags = MOUSEEVENTF_MIDDLEUP;
 
     // 发送输入
-    SendInput(3, inputs, sizeof(INPUT));
-
+    UINT result = SendInput(3, inputs, sizeof(INPUT));
+    if (result != 3) {
+        qDebug() << "SendInput failed: " << GetLastError();
+    }
     // 延时
     std::this_thread::sleep_for(std::chrono::milliseconds(m_clearEventSleepTime));
 }
@@ -88,7 +90,7 @@ MainWindow::~MainWindow() = default;
 
 void MainWindow::onActionMoveCursorTriggered() {
     qDebug() << "onActionMoveCursorTriggered-start";
-    Sleep(5000);
+    Sleep(3000);
     clearMouseEventStatus();
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
@@ -99,7 +101,7 @@ void MainWindow::onActionMoveCursorTriggered() {
 }
 
 void MainWindow::onActionLeftClickTriggered() {
-    Sleep(5000);
+    Sleep(3000);
     qDebug() << "onActionLeftClickTriggered-start";
     clearMouseEventStatus();
     for (int i = 0; i < m_forCnt; ++i) {
@@ -111,7 +113,7 @@ void MainWindow::onActionLeftClickTriggered() {
 }
 
 void MainWindow::onActionLeftDoubleClickTriggered() {
-    Sleep(5000);
+    Sleep(3000);
     qDebug() << "onActionLeftDoubleClickTriggered-start";
 
     clearMouseEventStatus();
@@ -124,7 +126,7 @@ void MainWindow::onActionLeftDoubleClickTriggered() {
 }
 
 void MainWindow::onActionMiddleDragTriggered() {
-    Sleep(5000);
+    Sleep(3000);
     qDebug() << "onActionMiddleDragTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
@@ -154,7 +156,7 @@ void MainWindow::onActionMiddleDragTriggered() {
 }
 
 void MainWindow::onActionLeftDragTriggered() {
-    Sleep(5000);
+    Sleep(3000);
     qDebug() << "onActionLeftDragTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
@@ -182,7 +184,7 @@ void MainWindow::onActionLeftDragTriggered() {
 }
 
 void MainWindow::onActionWheelZoomOutTriggered() {
-    Sleep(5000);
+    Sleep(3000);
     qDebug() << "onActionWheelZoomOutTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
@@ -198,7 +200,7 @@ void MainWindow::onActionWheelZoomOutTriggered() {
 }
 
 void MainWindow::onActionWheelZoomInTriggered() {
-    Sleep(5000);
+    Sleep(3000);
     qDebug() << "onActionWheelZoomInTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
@@ -212,7 +214,7 @@ void MainWindow::onActionWheelZoomInTriggered() {
 }
 
 void MainWindow::onActionRightDragTriggered() {
-    Sleep(5000);
+    Sleep(3000);
     qDebug() << "onActionRightDragTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
@@ -242,7 +244,7 @@ void MainWindow::onActionRightDragTriggered() {
 }
 
 void MainWindow::onActionRightClickTriggered() {
-    Sleep(5000);
+    Sleep(3000);
     qDebug() << "onActionRightClickTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
