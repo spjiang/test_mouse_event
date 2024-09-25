@@ -7,6 +7,7 @@
 #include <thread>
 #include <windows.h>
 #include <QMessageBox>
+#include <QThread>
 
 MainWindow &MainWindow::singleton() {
     static auto *instance = new MainWindow;
@@ -45,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 
 void MainWindow::clearMouseEventStatus() {
+    std::this_thread::sleep_for(std::chrono::milliseconds(m_mouseEventSleepTime));
     // 模拟鼠标左键释放
     mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
     // 延时
@@ -74,6 +76,18 @@ void MainWindow::onSubmit() {
 };
 
 MainWindow::~MainWindow() = default;
+
+
+// 函数用于清空由 mouse_event 产生的鼠标消息
+void MainWindow::ClearMouseEvents() {
+    MSG msg;
+    // 循环检查消息队列中的消息
+    while (PeekMessage(&msg, NULL, WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE)) {
+        // PeekMessage 会根据条件移除消息，如果消息范围在 WM_MOUSEFIRST 和 WM_MOUSELAST 之间
+        // 这些范围包括了大多数的鼠标事件消息，如 WM_MOUSEMOVE, WM_LBUTTONDOWN 等
+        qDebug() << "PeekMessage clear" << msg.message << msg.wParam;
+    }
+}
 
 
 // -----------------公共参数：手势Code--------------------
@@ -115,27 +129,28 @@ void MainWindow::onActionLeftDoubleClickTriggered() {
 }
 
 void MainWindow::onActionMiddleDragTriggered() {
-    Sleep(3000);
+    QThread::msleep(3000);
     qDebug() << "onActionMiddleDragTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
-        std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
 
-        // 模拟鼠标左键释放
-        mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-        // 延时
-        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventSleepTime));
-        // 模拟鼠标右键释放
-        mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-        // 延时
-        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventSleepTime));
-        // 按下中键
+        // 模拟中键拖动
         mouse_event(MOUSEEVENTF_MIDDLEDOWN, 0, 0, 0, 0);
-        // 延时
-        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventPutdownSleepTime));
-
-
         MouseSimulator::middleDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
+        ClearMouseEvents();
+        QThread::msleep(m_mouseEventPutdownSleepTime);
+
+        // 模拟右键拖动
+        mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+        MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
+        ClearMouseEvents();
+        QThread::msleep(m_mouseEventPutdownSleepTime);
+
+        // 模拟左键拖动
+        mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+        MouseSimulator::leftDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
+        ClearMouseEvents();
+        QThread::msleep(m_mouseEventPutdownSleepTime);
     }
 
     qDebug() << "onActionMiddleDragTriggered-end";
@@ -156,6 +171,7 @@ void MainWindow::onActionLeftDragTriggered() {
         mouse_event(MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
         // 延时
         std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventSleepTime));
+
         // 按下左键
         mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
         // 延时
@@ -164,6 +180,33 @@ void MainWindow::onActionLeftDragTriggered() {
         MouseSimulator::leftDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
     }
     qDebug() << "onActionLeftDragTriggered-end";
+}
+
+void MainWindow::onActionRightDragTriggered() {
+    Sleep(3000);
+    qDebug() << "onActionRightDragTriggered-start";
+    for (int i = 0; i < m_forCnt; ++i) {
+        qDebug() << "for i=" << i;
+        std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
+
+        // 模拟鼠标左键释放
+        mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+        // 延时
+        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventSleepTime));
+        // 模拟鼠标中键释放
+        mouse_event(MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
+        // 延时
+        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventSleepTime));
+        // 按下右键
+        mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+        // 延时
+        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventPutdownSleepTime));
+
+        MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
+    }
+
+    qDebug() << "onActionRightDragTriggered-end";
+
 }
 
 void MainWindow::onActionWheelZoomOutTriggered() {
@@ -194,33 +237,6 @@ void MainWindow::onActionWheelZoomInTriggered() {
         MouseSimulator::wheelZoomIn(MAIN.m_wheelZoomInMultWheelDelta);
     }
     qDebug() << "onActionWheelZoomInTriggered-end";
-}
-
-void MainWindow::onActionRightDragTriggered() {
-    Sleep(3000);
-    qDebug() << "onActionRightDragTriggered-start";
-    for (int i = 0; i < m_forCnt; ++i) {
-        qDebug() << "for i=" << i;
-        std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
-
-        // 模拟鼠标左键释放
-        mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-        // 延时
-        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventSleepTime));
-        // 模拟鼠标中键释放
-        mouse_event(MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
-        // 延时
-        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventSleepTime));
-        // 按下右键
-        mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-        // 延时
-        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventPutdownSleepTime));
-
-        MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
-    }
-
-    qDebug() << "onActionRightDragTriggered-end";
-
 }
 
 void MainWindow::onActionRightClickTriggered() {

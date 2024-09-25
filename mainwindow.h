@@ -59,6 +59,8 @@ public:
 
 public slots:
 
+    void ClearMouseEvents();
+
     void onActionMoveCursorTriggered();
 
     void onActionLeftClickTriggered();
