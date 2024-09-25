@@ -45,27 +45,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 
 void MainWindow::clearMouseEventStatus() {
-    INPUT inputs[3] = {};
-
     // 模拟鼠标左键释放
-    inputs[0].type = INPUT_MOUSE;
-    inputs[0].mi.dwFlags = MOUSEEVENTF_LEFTUP;
-
-    // 模拟鼠标右键释放
-    inputs[1].type = INPUT_MOUSE;
-    inputs[1].mi.dwFlags = MOUSEEVENTF_RIGHTUP;
-
-    // 模拟鼠标中键释放
-    inputs[2].type = INPUT_MOUSE;
-    inputs[2].mi.dwFlags = MOUSEEVENTF_MIDDLEUP;
-
-    // 发送输入
-    UINT result = SendInput(3, inputs, sizeof(INPUT));
-    if (result != 3) {
-        qCritical() << "SendInput failed: " << GetLastError();
-    }
-    qDebug() << "SendInput result: " << result;
+    mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
     // 延时
+    std::this_thread::sleep_for(std::chrono::milliseconds(m_clearEventSleepTime));
+    // 模拟鼠标右键释放
+    mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+    std::this_thread::sleep_for(std::chrono::milliseconds(m_clearEventSleepTime));
+    // 模拟鼠标中键释放
+    mouse_event(MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
+    // 对于其他鼠标按钮，也可以使用MOUSEEVENTF_XUP模拟释放
     std::this_thread::sleep_for(std::chrono::milliseconds(m_clearEventSleepTime));
 }
 
