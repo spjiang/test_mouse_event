@@ -62,8 +62,9 @@ void MainWindow::clearMouseEventStatus() {
     // 发送输入
     UINT result = SendInput(3, inputs, sizeof(INPUT));
     if (result != 3) {
-        qDebug() << "SendInput failed: " << GetLastError();
+        qCritical() << "SendInput failed: " << GetLastError();
     }
+    qDebug() << "SendInput result: " << result;
     // 延时
     std::this_thread::sleep_for(std::chrono::milliseconds(m_clearEventSleepTime));
 }
@@ -103,7 +104,6 @@ void MainWindow::onActionMoveCursorTriggered() {
 void MainWindow::onActionLeftClickTriggered() {
     Sleep(3000);
     qDebug() << "onActionLeftClickTriggered-start";
-    clearMouseEventStatus();
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
