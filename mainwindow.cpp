@@ -75,7 +75,7 @@ void MainWindow::onSubmit() {
     m_strideDelay = ui->stride_delay->text().toInt();
     m_frameInterval = ui->frame_interval->text().toInt();
     m_wheelZoomInMultWheelDelta = ui->wheelZoomIn_mult_wheel_delta->text().toInt();
-    m_wheelZoomOutMultWheelDelta = ui->wheelZoomOut_mult_wheel_delta().toInt();
+    m_wheelZoomOutMultWheelDelta = ui->wheelZoomOut_mult_wheel_delta->text().toInt();
 };
 
 MainWindow::~MainWindow() = default;
