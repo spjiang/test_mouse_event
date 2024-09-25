@@ -26,6 +26,8 @@ set(PROJECT_SOURCES
         mainwindow.ui
         MouseSimulator.h
         MouseSimulator.cpp
+        resources.qrc
+        packaging/MotionCtrl.rc
 )
 
 # 添加可执行文件

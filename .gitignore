@@ -75,4 +75,5 @@ cmake-build-debug/
 third_party/
 installer/MotionCtrl-Mouse-POC.exe
 installer/test_mouse_event.exe
+packaging/MotionCtrl-Mouse-POC.exe
 
