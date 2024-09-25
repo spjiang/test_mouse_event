@@ -39,8 +39,8 @@ Q_OBJECT
 public:
     int m_targetMoveX = 100;
     int m_targetMoveY = 100;
-    int m_eventDownSleepTime = 100;
-    int m_clearEventSleepTime = 20;
+    int m_mouseEventPutdownSleepTime = 100;
+    int m_mouseEventSleepTime = 20;
     int m_forCnt = 1;
     int m_stride = 5;
     int m_strideDelay = 10;

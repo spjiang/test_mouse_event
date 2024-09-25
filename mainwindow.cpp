@@ -48,21 +48,21 @@ void MainWindow::clearMouseEventStatus() {
     // 模拟鼠标左键释放
     mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
     // 延时
-    std::this_thread::sleep_for(std::chrono::milliseconds(m_clearEventSleepTime));
+    std::this_thread::sleep_for(std::chrono::milliseconds(m_mouseEventSleepTime));
     // 模拟鼠标右键释放
     mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-    std::this_thread::sleep_for(std::chrono::milliseconds(m_clearEventSleepTime));
+    std::this_thread::sleep_for(std::chrono::milliseconds(m_mouseEventSleepTime));
     // 模拟鼠标中键释放
     mouse_event(MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
     // 对于其他鼠标按钮，也可以使用MOUSEEVENTF_XUP模拟释放
-    std::this_thread::sleep_for(std::chrono::milliseconds(m_clearEventSleepTime));
+    std::this_thread::sleep_for(std::chrono::milliseconds(m_mouseEventSleepTime));
 }
 
 void MainWindow::onSubmit() {
     m_targetMoveX = ui->target_move_x->text().toInt();
     m_targetMoveY = ui->target_move_y->text().toInt();
-    m_eventDownSleepTime = ui->event_down_sleep_time->text().toInt();
-    m_clearEventSleepTime = ui->clear_event_sleep_time->text().toInt();
+    m_mouseEventPutdownSleepTime = ui->event_down_sleep_time->text().toInt();
+    m_mouseEventSleepTime = ui->clear_event_sleep_time->text().toInt();
     m_forCnt = ui->for_cnt->text().toInt();
     m_stride = ui->stride->text().toInt();
     m_strideDelay = ui->stride_delay->text().toInt();
@@ -121,22 +121,19 @@ void MainWindow::onActionMiddleDragTriggered() {
         qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
 
-        INPUT inputs[3] = {};
-
         // 模拟鼠标左键释放
-        inputs[0].type = INPUT_MOUSE;
-        inputs[0].mi.dwFlags = MOUSEEVENTF_LEFTUP;
-
+        mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+        // 延时
+        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventSleepTime));
         // 模拟鼠标右键释放
-        inputs[1].type = INPUT_MOUSE;
-        inputs[1].mi.dwFlags = MOUSEEVENTF_RIGHTUP;
+        mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+        // 延时
+        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventSleepTime));
+        // 按下中键
+        mouse_event(MOUSEEVENTF_MIDDLEDOWN, 0, 0, 0, 0);
+        // 延时
+        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventPutdownSleepTime));
 
-        // 模拟鼠标中键按下
-        inputs[2].type = INPUT_MOUSE;
-        inputs[2].mi.dwFlags = MOUSEEVENTF_MIDDLEDOWN;
-
-        // 发送输入
-        SendInput(3, inputs, sizeof(INPUT));
 
         MouseSimulator::middleDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
     }
@@ -150,22 +147,19 @@ void MainWindow::onActionLeftDragTriggered() {
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
-        INPUT inputs[3] = {};
 
         // 模拟鼠标右键释放
-        inputs[0].type = INPUT_MOUSE;
-        inputs[0].mi.dwFlags = MOUSEEVENTF_RIGHTUP;
-
+        mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+        // 延时
+        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventSleepTime));
         // 模拟鼠标中键释放
-        inputs[1].type = INPUT_MOUSE;
-        inputs[1].mi.dwFlags = MOUSEEVENTF_MIDDLEUP;
-
-        // 模拟鼠标左键按下
-        inputs[2].type = INPUT_MOUSE;
-        inputs[2].mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
-
-        // 发送输入
-        SendInput(3, inputs, sizeof(INPUT));
+        mouse_event(MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
+        // 延时
+        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventSleepTime));
+        // 按下左键
+        mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+        // 延时
+        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventPutdownSleepTime));
 
         MouseSimulator::leftDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
     }
@@ -208,22 +202,19 @@ void MainWindow::onActionRightDragTriggered() {
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
-        INPUT inputs[3] = {};
-
-        // 模拟鼠标中键释放
-        inputs[0].type = INPUT_MOUSE;
-        inputs[0].mi.dwFlags = MOUSEEVENTF_MIDDLEUP;
 
         // 模拟鼠标左键释放
-        inputs[1].type = INPUT_MOUSE;
-        inputs[1].mi.dwFlags = MOUSEEVENTF_LEFTUP;
-
+        mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+        // 延时
+        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventSleepTime));
+        // 模拟鼠标中键释放
+        mouse_event(MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
+        // 延时
+        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventSleepTime));
         // 按下右键
-        inputs[2].type = INPUT_MOUSE;
-        inputs[2].mi.dwFlags = MOUSEEVENTF_RIGHTDOWN;
-
-        // 发送输入
-        SendInput(3, inputs, sizeof(INPUT));
+        mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+        // 延时
+        std::this_thread::sleep_for(std::chrono::milliseconds(MAIN.m_mouseEventPutdownSleepTime));
 
         MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
     }
