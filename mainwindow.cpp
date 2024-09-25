@@ -85,6 +85,7 @@ MainWindow::~MainWindow() = default;
 
 void MainWindow::onActionMoveCursorTriggered() {
     qDebug() << "onActionMoveCursorTriggered-start";
+    Sleep(5000);
     clearMouseEventStatus();
     for (int i = 0; i < m_forCnt; ++i) {
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
@@ -94,7 +95,7 @@ void MainWindow::onActionMoveCursorTriggered() {
 }
 
 void MainWindow::onActionLeftClickTriggered() {
-
+    Sleep(5000);
     qDebug() << "onActionLeftClickTriggered-start";
     clearMouseEventStatus();
     for (int i = 0; i < m_forCnt; ++i) {
@@ -105,6 +106,7 @@ void MainWindow::onActionLeftClickTriggered() {
 }
 
 void MainWindow::onActionLeftDoubleClickTriggered() {
+    Sleep(5000);
     qDebug() << "onActionLeftDoubleClickTriggered-start";
 
     clearMouseEventStatus();
@@ -116,6 +118,7 @@ void MainWindow::onActionLeftDoubleClickTriggered() {
 }
 
 void MainWindow::onActionMiddleDragTriggered() {
+    Sleep(5000);
     qDebug() << "onActionMiddleDragTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
@@ -144,6 +147,7 @@ void MainWindow::onActionMiddleDragTriggered() {
 }
 
 void MainWindow::onActionLeftDragTriggered() {
+    Sleep(5000);
     qDebug() << "onActionLeftDragTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
@@ -170,6 +174,7 @@ void MainWindow::onActionLeftDragTriggered() {
 }
 
 void MainWindow::onActionWheelZoomOutTriggered() {
+    Sleep(5000);
     qDebug() << "onActionWheelZoomOutTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
@@ -184,6 +189,7 @@ void MainWindow::onActionWheelZoomOutTriggered() {
 }
 
 void MainWindow::onActionWheelZoomInTriggered() {
+    Sleep(5000);
     qDebug() << "onActionWheelZoomInTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
@@ -196,6 +202,7 @@ void MainWindow::onActionWheelZoomInTriggered() {
 }
 
 void MainWindow::onActionRightDragTriggered() {
+    Sleep(5000);
     qDebug() << "onActionRightDragTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
@@ -224,6 +231,7 @@ void MainWindow::onActionRightDragTriggered() {
 }
 
 void MainWindow::onActionRightClickTriggered() {
+    Sleep(5000);
     qDebug() << "onActionRightClickTriggered-start";
     for (int i = 0; i < m_forCnt; ++i) {
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));

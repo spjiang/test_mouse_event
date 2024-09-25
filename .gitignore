@@ -74,4 +74,5 @@ cmake-build-debug/
 .idea/
 third_party/
 installer/MotionCtrl-Mouse-POC.exe
+installer/test_mouse_event.exe
 
