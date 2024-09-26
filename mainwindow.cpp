@@ -214,10 +214,15 @@ void MainWindow::onActionMiddleDragTriggered() {
         clearMouseEventStatus("leftDrag");
         // 模拟左键拖动
         mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+        m_leftDragPutDownCount++;
         MouseSimulator::leftDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
         QThread::msleep(m_mouseEventPutdownSleepTime);
     }
 
+    clearMouseEventStatus("null_event");
+
+    qDebug() << "m_rightDragPutDownCount m_leftDragPutDownCount m_middleDragPutDownCount" << m_rightDragPutDownCount
+             << " " << m_leftDragPutDownCount << " " << m_middleDragPutDownCount;
     qDebug() << "onActionMiddleDragTriggered-end";
 }
 
