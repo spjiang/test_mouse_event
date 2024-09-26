@@ -45,19 +45,58 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 }
 
 
-void MainWindow::clearMouseEventStatus() {
-    std::this_thread::sleep_for(std::chrono::milliseconds(m_mouseEventSleepTime));
-    // 模拟鼠标左键释放
-    mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-    // 延时
-    std::this_thread::sleep_for(std::chrono::milliseconds(m_mouseEventSleepTime));
-    // 模拟鼠标右键释放
-    mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-    std::this_thread::sleep_for(std::chrono::milliseconds(m_mouseEventSleepTime));
-    // 模拟鼠标中键释放
-    mouse_event(MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
-    // 对于其他鼠标按钮，也可以使用MOUSEEVENTF_XUP模拟释放
-    std::this_thread::sleep_for(std::chrono::milliseconds(m_mouseEventSleepTime));
+void MainWindow::clearMouseEventStatus(QString mouseCode) {
+    if (mouseCode == "rightDrag") {
+        for (int i = 0; i < m_leftDragPutDownCount; ++i) {
+            // 模拟鼠标左键释放
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+        }
+        for (int i = 0; i < m_middleDragPutDownCount; ++i) {
+            // 模拟鼠标中键释放
+            mouse_event(MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
+        }
+        m_leftDragPutDownCount = 0;
+        m_middleDragPutDownCount = 0;
+
+    } else if (mouseCode == "leftDrag") {
+        for (int i = 0; i < m_rightDragPutDownCount; ++i) {
+            // 模拟鼠标右键释放
+            mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+        }
+        for (int i = 0; i < m_middleDragPutDownCount; ++i) {
+            // 模拟鼠标中键释放
+            mouse_event(MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
+        }
+        m_rightDragPutDownCount = 0;
+        m_middleDragPutDownCount = 0;
+    } else if (mouseCode == "middleDrag") {
+        for (int i = 0; i < m_leftDragPutDownCount; ++i) {
+            // 模拟鼠标左键释放
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+        }
+        for (int i = 0; i < m_rightDragPutDownCount; ++i) {
+            // 模拟鼠标右键释放
+            mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+        }
+        m_leftDragPutDownCount = 0;
+        m_rightDragPutDownCount = 0;
+    } else {
+        for (int i = 0; i < m_leftDragPutDownCount; ++i) {
+            // 模拟鼠标左键释放
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+        }
+        for (int i = 0; i < m_rightDragPutDownCount; ++i) {
+            // 模拟鼠标右键释放
+            mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+        }
+        for (int i = 0; i < m_middleDragPutDownCount; ++i) {
+            // 模拟鼠标中键释放
+            mouse_event(MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
+        }
+        m_leftDragPutDownCount = 0;
+        m_rightDragPutDownCount = 0;
+        m_middleDragPutDownCount = 0;
+    }
 }
 
 void MainWindow::onSubmit() {
@@ -80,14 +119,23 @@ MainWindow::~MainWindow() = default;
 
 // 函数用于清空由 mouse_event 产生的鼠标消息
 void MainWindow::ClearMouseEvents() {
+    qDebug() << "ClearMouseEvents";
     MSG msg;
-    // 循环检查消息队列中的消息
+    bool cleared = false; // 标记是否清空了事件
+
+    // 循环检查消息队列中的鼠标消息
     while (PeekMessage(&msg, NULL, WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE)) {
-        // PeekMessage 会根据条件移除消息，如果消息范围在 WM_MOUSEFIRST 和 WM_MOUSELAST 之间
-        // 这些范围包括了大多数的鼠标事件消息，如 WM_MOUSEMOVE, WM_LBUTTONDOWN 等
-        qDebug() << "PeekMessage clear" << msg.message << msg.wParam;
+        qDebug() << "Cleared Mouse Event:" << msg.message;
+        cleared = true; // 标记已清空事件
+    }
+
+    if (cleared) {
+        qDebug() << "Mouse events cleared successfully.";
+    } else {
+        qDebug() << "No mouse events to clear.";
     }
 }
+
 
 
 // -----------------公共参数：手势Code--------------------
@@ -95,7 +143,7 @@ void MainWindow::ClearMouseEvents() {
 void MainWindow::onActionMoveCursorTriggered() {
     qDebug() << "onActionMoveCursorTriggered-start";
     Sleep(3000);
-    clearMouseEventStatus();
+    clearMouseEventStatus("MoveCursor");
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
@@ -107,6 +155,7 @@ void MainWindow::onActionMoveCursorTriggered() {
 void MainWindow::onActionLeftClickTriggered() {
     Sleep(3000);
     qDebug() << "onActionLeftClickTriggered-start";
+    clearMouseEventStatus("LeftClick");
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
@@ -119,7 +168,7 @@ void MainWindow::onActionLeftDoubleClickTriggered() {
     Sleep(3000);
     qDebug() << "onActionLeftDoubleClickTriggered-start";
 
-    clearMouseEventStatus();
+    clearMouseEventStatus("DoubleClick");
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
@@ -131,30 +180,47 @@ void MainWindow::onActionLeftDoubleClickTriggered() {
 void MainWindow::onActionMiddleDragTriggered() {
     QThread::msleep(3000);
     qDebug() << "onActionMiddleDragTriggered-start";
+
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
 
+        // 清空鼠标事件
+        clearMouseEventStatus("middleDrag");
         // 模拟中键拖动
         mouse_event(MOUSEEVENTF_MIDDLEDOWN, 0, 0, 0, 0);
         MouseSimulator::middleDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
-        ClearMouseEvents();
         QThread::msleep(m_mouseEventPutdownSleepTime);
+        m_middleDragPutDownCount++;
 
+        // 清空鼠标事件
+        clearMouseEventStatus("rightDrag");
         // 模拟右键拖动
         mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+        m_rightDragPutDownCount++;
         MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
-        ClearMouseEvents();
+        QThread::msleep(m_mouseEventPutdownSleepTime);
+        // 模拟右键拖动
+        mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+        m_rightDragPutDownCount++;
+        MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
+        QThread::msleep(m_mouseEventPutdownSleepTime);
+        // 模拟右键拖动
+        mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+        m_rightDragPutDownCount++;
+        MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
         QThread::msleep(m_mouseEventPutdownSleepTime);
 
+        // 清空鼠标事件
+        clearMouseEventStatus("leftDrag");
         // 模拟左键拖动
         mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
         MouseSimulator::leftDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
-        ClearMouseEvents();
         QThread::msleep(m_mouseEventPutdownSleepTime);
     }
 
     qDebug() << "onActionMiddleDragTriggered-end";
 }
+
 
 void MainWindow::onActionLeftDragTriggered() {
     Sleep(3000);

@@ -48,7 +48,11 @@ public:
     int m_wheelZoomInMultWheelDelta = 1;
     int m_wheelZoomOutMultWheelDelta = 1;
 
-    void clearMouseEventStatus();
+    void clearMouseEventStatus(QString mouseCode);
+
+    int m_rightDragPutDownCount = 0;
+    int m_leftDragPutDownCount = 0;
+    int m_middleDragPutDownCount = 0;
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
