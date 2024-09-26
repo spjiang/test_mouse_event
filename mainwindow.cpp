@@ -282,7 +282,7 @@ void MainWindow::onActionWheelZoomOutTriggered() {
         qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
         // 清空鼠标状态
-        MAIN.clearMouseEventStatus();
+        MAIN.clearMouseEventStatus("wheelZoomOut");
 
         // 触发鼠标事件
         MouseSimulator::wheelZoomOut(MAIN.m_wheelZoomOutMultWheelDelta);
@@ -298,7 +298,7 @@ void MainWindow::onActionWheelZoomInTriggered() {
         qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
         // 清空鼠标状态
-        MAIN.clearMouseEventStatus();
+        MAIN.clearMouseEventStatus("wheelZoomIn");
         // 触发鼠标事件
         MouseSimulator::wheelZoomIn(MAIN.m_wheelZoomInMultWheelDelta);
     }
@@ -312,7 +312,7 @@ void MainWindow::onActionRightClickTriggered() {
         qDebug() << "for i=" << i;
         std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
         // 清空鼠标状态
-        MAIN.clearMouseEventStatus();
+        MAIN.clearMouseEventStatus("rightClick");
 
         // 触发鼠标事件
         GestureData gestureData;
