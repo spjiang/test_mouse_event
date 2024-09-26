@@ -184,14 +184,29 @@ void MainWindow::onActionMiddleDragTriggered() {
     for (int i = 0; i < m_forCnt; ++i) {
         qDebug() << "for i=" << i;
 
+
+        qDebug() << "+++++++++++++++++++++模拟中键拖动+++++++++++++++++++++";
         // 清空鼠标事件
         clearMouseEventStatus("middleDrag");
-        // 模拟中键拖动
         mouse_event(MOUSEEVENTF_MIDDLEDOWN, 0, 0, 0, 0);
+        m_middleDragPutDownCount++;
         MouseSimulator::middleDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
         QThread::msleep(m_mouseEventPutdownSleepTime);
-        m_middleDragPutDownCount++;
 
+        // 模拟中键拖动
+        mouse_event(MOUSEEVENTF_MIDDLEDOWN, 0, 0, 0, 0);
+        m_middleDragPutDownCount++;
+        MouseSimulator::middleDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
+        QThread::msleep(m_mouseEventPutdownSleepTime);
+
+        // 模拟中键拖动
+        mouse_event(MOUSEEVENTF_MIDDLEDOWN, 0, 0, 0, 0);
+        m_middleDragPutDownCount++;
+        MouseSimulator::middleDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
+        QThread::msleep(m_mouseEventPutdownSleepTime);
+
+
+        qDebug() << "+++++++++++++++++++++模拟右键拖动+++++++++++++++++++++";
         // 清空鼠标事件
         clearMouseEventStatus("rightDrag");
         // 模拟右键拖动
@@ -210,8 +225,16 @@ void MainWindow::onActionMiddleDragTriggered() {
         MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
         QThread::msleep(m_mouseEventPutdownSleepTime);
 
+
+        qDebug() << "+++++++++++++++++++++模拟左键拖动+++++++++++++++++++++";
         // 清空鼠标事件
         clearMouseEventStatus("leftDrag");
+        // 模拟左键拖动
+        mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+        m_leftDragPutDownCount++;
+        MouseSimulator::leftDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
+        QThread::msleep(m_mouseEventPutdownSleepTime);
+
         // 模拟左键拖动
         mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
         m_leftDragPutDownCount++;
