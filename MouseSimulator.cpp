@@ -153,7 +153,7 @@ delay（步长延迟时间毫秒）:
 缓慢移动：
  moveMouseToTarget(current, target, 5, 10);  // 小步长+长延迟，移动慢
  */
-void MouseSimulator::moveMouseToTarget(Point current, Point target, int stride, int delay) {
+void MouseSimulator::moveMouseToTargetSpeed(Point current, Point target, int stride, int delay) {
 
     // 获取屏幕大小
     ScreenSize screenSize = getCurrentMonitorSize();
@@ -210,6 +210,52 @@ void MouseSimulator::moveMouseToTarget(Point current, Point target, int stride, 
     // 最终确保光标位置精确到目标点
     moveCursorToMonitorPos(target.x, target.y);
 }
+
+void MouseSimulator::moveMouseToTarget(Point current, Point target, int stride, int delay) {
+    if (stride <= 0 || delay < 0) {
+        qDebug() << "Invalid stride or delay values.";
+        return;
+    }
+
+    ScreenSize screenSize = getCurrentMonitorSize();
+    int screenWidth = screenSize.screenWidth;
+    int screenHeight = screenSize.screenHeight;
+
+    if (target.x < 0 || target.y < 0 || target.x > screenWidth || target.y > screenHeight) {
+        return;
+    }
+
+    int deltaX = target.x - current.x;
+    int deltaY = target.y - current.y;
+    double totalDistance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
+
+    if (totalDistance == 0) return;
+
+    double directionX = deltaX / totalDistance;
+    double directionY = deltaY / totalDistance;
+
+    while (totalDistance > stride) {
+        current.x += static_cast<int>(directionX * stride);
+        current.y += static_cast<int>(directionY * stride);
+        qDebug() << "Moving to: " << current.x << ", " << current.y;
+        moveCursorToMonitorPos(current.x, current.y);
+        std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+
+        deltaX = target.x - current.x;
+        deltaY = target.y - current.y;
+        totalDistance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // Check if we're very close to the target
+        if (totalDistance < stride) {
+            break;
+        }
+    }
+    qDebug() << "Moving to target: " << target.x << ", " << target.y;
+    moveCursorToMonitorPos(target.x, target.y);
+}
+
+
+
 
 // 光标位置移动
 void MouseSimulator::moveCursor(int x, int y, int stride, int delay) {

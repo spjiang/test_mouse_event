@@ -37,6 +37,8 @@ public:
 
     void static moveMouseToTarget(Point current, Point target, int stride, int delay);
 
+    void static moveMouseToTargetSpeed(Point current, Point target, int stride, int delay);
+
     // 1. 光标位置移动
     static void moveCursor(int x, int y, int stride, int delay);
 

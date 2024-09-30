@@ -185,64 +185,56 @@ void MainWindow::onActionMiddleDragTriggered() {
         qDebug() << "for i=" << i;
 
 
-        qDebug() << "+++++++++++++++++++++模拟中键拖动+++++++++++++++++++++";
+        qDebug() << "+++++++++++++++++++++middleDrag+++++++++++++++++++++";
         // 清空鼠标事件
         clearMouseEventStatus("middleDrag");
         mouse_event(MOUSEEVENTF_MIDDLEDOWN, 0, 0, 0, 0);
         m_middleDragPutDownCount++;
-        MouseSimulator::middleDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
         QThread::msleep(m_mouseEventPutdownSleepTime);
-
-        // 模拟中键拖动
-        mouse_event(MOUSEEVENTF_MIDDLEDOWN, 0, 0, 0, 0);
-        m_middleDragPutDownCount++;
         MouseSimulator::middleDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
-        QThread::msleep(m_mouseEventPutdownSleepTime);
-
+        std::this_thread::sleep_for(std::chrono::milliseconds(m_frameInterval));
         // 模拟中键拖动
-        mouse_event(MOUSEEVENTF_MIDDLEDOWN, 0, 0, 0, 0);
+        //  mouse_event(MOUSEEVENTF_MIDDLEDOWN, 0, 0, 0, 0);
         m_middleDragPutDownCount++;
         MouseSimulator::middleDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
         QThread::msleep(m_mouseEventPutdownSleepTime);
 
 
-        qDebug() << "+++++++++++++++++++++模拟右键拖动+++++++++++++++++++++";
-        // 清空鼠标事件
-        clearMouseEventStatus("rightDrag");
-        // 模拟右键拖动
-        mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-        m_rightDragPutDownCount++;
-        MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
-        QThread::msleep(m_mouseEventPutdownSleepTime);
-        // 模拟右键拖动
-        mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-        m_rightDragPutDownCount++;
-        MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
-        QThread::msleep(m_mouseEventPutdownSleepTime);
-        // 模拟右键拖动
-        mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-        m_rightDragPutDownCount++;
-        MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
-        QThread::msleep(m_mouseEventPutdownSleepTime);
-
-
-        qDebug() << "+++++++++++++++++++++模拟左键拖动+++++++++++++++++++++";
-        // 清空鼠标事件
-        clearMouseEventStatus("leftDrag");
-        // 模拟左键拖动
-        mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-        m_leftDragPutDownCount++;
-        MouseSimulator::leftDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
-        QThread::msleep(m_mouseEventPutdownSleepTime);
-
-        // 模拟左键拖动
-        mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-        m_leftDragPutDownCount++;
-        MouseSimulator::leftDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
-        QThread::msleep(m_mouseEventPutdownSleepTime);
+//        qDebug() << "+++++++++++++++++++++leftDrag+++++++++++++++++++++";
+//        // 清空鼠标事件
+//        clearMouseEventStatus("leftDrag");
+//        // 模拟左键拖动
+//        mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+//        m_leftDragPutDownCount++;
+//        MouseSimulator::leftDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
+//        QThread::msleep(m_mouseEventPutdownSleepTime);
+//
+//
+//
+//        qDebug() << "+++++++++++++++++++++rightDrag+++++++++++++++++++++";
+//        // 清空鼠标事件
+//        clearMouseEventStatus("rightDrag");
+//        // 模拟右键拖动
+//        mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+//        m_rightDragPutDownCount++;
+//        MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
+//        QThread::msleep(m_mouseEventPutdownSleepTime);
+//        // 模拟右键拖动
+//        mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+//        m_rightDragPutDownCount++;
+//        MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
+//        QThread::msleep(m_mouseEventPutdownSleepTime);
+//        // 模拟右键拖动
+//        mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+//        m_rightDragPutDownCount++;
+//        MouseSimulator::rightDrag(m_targetMoveX, m_targetMoveY, m_stride, m_strideDelay);
+//        QThread::msleep(m_mouseEventPutdownSleepTime);
     }
 
-    clearMouseEventStatus("null_event");
+    qDebug() << "m_rightDragPutDownCount m_leftDragPutDownCount m_middleDragPutDownCount" << m_rightDragPutDownCount
+             << " " << m_leftDragPutDownCount << " " << m_middleDragPutDownCount;
+
+    clearMouseEventStatus("null");
 
     qDebug() << "m_rightDragPutDownCount m_leftDragPutDownCount m_middleDragPutDownCount" << m_rightDragPutDownCount
              << " " << m_leftDragPutDownCount << " " << m_middleDragPutDownCount;
